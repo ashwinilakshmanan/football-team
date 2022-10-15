@@ -1,0 +1,17 @@
+.dropdown-player{
+    display: flex!important;
+    justify-content: center;
+    margin-top: -80px;
+}
+.icon{
+    width: 2em!important;
+    height: 2em!important;
+}
+.player-form{
+    margin-top: 50px!important;
+    padding: 20px!important;
+}
+.teamimg{
+    width: 250px!important;
+    height: 250px!important;
+}
