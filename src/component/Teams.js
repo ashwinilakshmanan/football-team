@@ -24,7 +24,10 @@ export default function Teams() {
   }, [teams]);
   return (
     <>
-      <div style={{ marginBottom: "50px" }} className="shadowcard d-flex flex-wrap">
+      <div
+        style={{ marginBottom: "50px" }}
+        className=" d-flex flex-wrap"
+      >
         {teamData?.map((team) => {
           return (
             <Card

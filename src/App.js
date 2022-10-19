@@ -15,17 +15,16 @@ function App() {
     <>
       {/* <div>App</div>
     <Teams/>
-    
+    <Sample/>
      <TeamForm/>
     <PlayerForm/> */}
+
       <Header />
-      {/* <Sample/> */}
-      
       <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<Home />} />
         <Route path="/teams" element={<Teams />} />
         <Route path="/players" element={<Players />} />
-        <Route path="/teamDetails" element={<TeamDetails/>}/>
+        <Route path="/teamDetails" element={<TeamDetails />} />
       </Routes>
     </>
   );

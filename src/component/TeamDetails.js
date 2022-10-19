@@ -30,7 +30,7 @@ export default function Teams() {
     <>
       <div
         style={{ marginBottom: "50px" }}
-        className="shadowcard d-flex flex-wrap"
+        className=" d-flex flex-wrap"
       >
         {updatedTeam.map((team, index) => {
           return (
@@ -49,23 +49,42 @@ export default function Teams() {
                   <div className=" text-center cardtxt">
                     <Card.Title>{team.name}</Card.Title>
                   </div>
+                  <div>{/* <h4>Players:</h4> */}</div>
+
                   <div>
-                    <h4>Players:</h4>
-                  </div>
-                  {team?.players?.map((player) => {
-                    return (
-                      <div>
-                        <h4 style={{ color: "blue" }}>
+                    <Dropdown>
+                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                        Players
+                      </Dropdown.Toggle>
+                      <Dropdown.Menu>
+                        {team?.players?.map((player) => {
+                          return (
+                            <Dropdown.Item>
+                              <img
+                                src={player.photo}
+                                style={{ width: "30px" }}
+                              />
+                              <h5>{player.name} </h5>
+                              <AiFillDelete
+                                onClick={() => {
+                                  removePlayer(team, player);
+                                }}
+                              />
+                            </Dropdown.Item>
+                          );
+                        })}
+                      </Dropdown.Menu>
+                    </Dropdown>
+
+                    {/* <h4 style={{ color: "blue" }}>
                           {player.name}{" "}
                           <AiFillDelete
                             onClick={() => {
                               removePlayer(team, player);
                             }}
                           />
-                        </h4>
-                      </div>
-                    );
-                  })}
+                        </h4> */}
+                  </div>
                 </Card.Body>
               </Card>
             </>

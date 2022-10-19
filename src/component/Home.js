@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { addPlayer, addTeam } from "../actions/teamActions";
 import { Navigate, useNavigate } from "react-router-dom";
 import { teamReducer } from "../reducers/teamReducer";
-
+import { LeaugesList } from "./LeaugesList";
 export default function Home() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,13 +23,13 @@ export default function Home() {
   // const onAddPlayer=()=>{
   //   dispatch(addPlayer());
   // }
-  
+
   const Players = PlayerList.map((player) => {
     return (
       <>
-        <div style={{ marginBottom: "50px" }} className="shadowcard">
+        <div style={{ marginBottom: "50px" }} className="shadowcard ">
           <Card
-            className="card h-100 text-center p-3 m-2"
+            className="card h-100 text-center p-3 m-2 border"
             style={{ width: "18rem" }}
           >
             <Card.Img
@@ -46,7 +46,6 @@ export default function Home() {
               {/* <div><Button onClick={()=>{onAddPlayer(player);navigate("/players")}}>Add Player</Button></div> */}
             </Card.Body>
           </Card>
-         
         </div>
       </>
     );
@@ -86,7 +85,6 @@ export default function Home() {
                 <Button
                   onClick={() => {
                     onAddTeam(p);
-                   
                   }}
                 >
                   Add Team
@@ -98,12 +96,37 @@ export default function Home() {
       </>
     );
   });
+
+  const leagues = LeaugesList.map((league) => {
+    return (
+      <>
+        <div style={{ marginBottom: "50px" }} className="shadowcard ">
+          <Card
+            className="card h-100 text-center p-3 m-2 border"
+            style={{ width: "18rem" }}
+          >
+            <Card.Img
+              variant="top"
+              className="teamimg"
+              src={league.logo}
+              height250px
+            />
+            <Card.Body className="card-body">
+              <div className=" text-center cardtxt">
+                <Card.Title>{league.name}</Card.Title>
+              </div>
+              {/* <div><Button onClick={()=>{onAddPlayer(player);navigate("/players")}}>Add Player</Button></div> */}
+            </Card.Body>
+          </Card>
+        </div>
+      </>
+    );
+  });
   return (
     <>
-      <div className="d-flex flex-wrap">
-        {teams}
-        {Players}
-      </div>
+      <div className="d-flex flex-wrap border">{leagues}</div>
+      <div className="d-flex flex-wrap border">{teams}</div>
+      <div className="d-flex flex-wrap border">{Players}</div>
     </>
   );
 }

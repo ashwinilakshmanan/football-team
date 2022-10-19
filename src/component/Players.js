@@ -7,45 +7,47 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import "./styles.css";
+import Form from "react-bootstrap/Form";
 
 export default function Players() {
   const [player, setPlayer] = useState([]);
   const [teamid, setteamid] = useState();
   const [show, setShow] = useState(false);
-  const [selectedTeam,setSelectedTeam]=useState({});
+  const [selectedTeam, setSelectedTeam] = useState({});
 
   const dispatch = useDispatch();
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   const handleClose = () => {
     setShow(false);
-    setSelectedTeam({})
-  }
-  const handleShow = (player) =>{
-    setPlayer(player)
+    setSelectedTeam({});
+  };
+  const handleShow = (player) => {
+    setPlayer(player);
     setShow(true);
-  } 
+  };
 
   const playerData = useSelector((state) => {
     return state.teamsReducer.playerList;
   });
   useEffect(() => {
-   // console.log("state", playerData);
+    // console.log("state", playerData);
   }, [playerData]);
 
   const teamdData = useSelector((state) => {
     return state.teamsReducer.teams;
   });
   console.log("teamDtata", teamdData);
-
   
-
   const addPlayer = (player) => {
-   
-    dispatch(addPlayerToTeam(selectedTeam,player))
-    setSelectedTeam({})
+    dispatch(addPlayerToTeam(selectedTeam, player));
+
+    setSelectedTeam({});
+    console.log("selected team", selectedTeam);
     handleClose();
   };
-
+  // const onAddPlayer = (team) => {
+  //   setSelectedTeam(team);
+  // };
   return (
     <>
       <h3>player</h3>
@@ -54,15 +56,22 @@ export default function Players() {
           //console.log("playerdata", playerData);
           return (
             <>
-              <Card style={{ width: "18rem" }}>
-                <Card.Img className="teamimg" variant="top" src={player.photo} />
+              <Card
+                className="card h-100 text-center p-3 m-2"
+                style={{ width: "18rem" }}
+              >
+                <Card.Img
+                  className="teamimg"
+                  variant="top"
+                  src={player.photo}
+                />
                 <Card.Body>
                   <Card.Title>{player.name}</Card.Title>
                   <Card.Title>{player.position}</Card.Title>
                   <Button
-                  disabled={!player.available}
+                    disabled={!player.available}
                     variant="primary"
-                    onClick={()=>handleShow(player)}
+                    onClick={() => handleShow(player)}
                     onChange={(event) => {
                       const id = Number(event.target.value);
                       setteamid(id);
@@ -83,11 +92,27 @@ export default function Players() {
 
           <Modal.Body>
             {" "}
-            <Dropdown>
+            <Form.Select
+              id="selectBox"
+              onChange={(event) => {
+                setSelectedTeam(event.target.value);
+                console.log("form", event.target.value);
+              }}
+            >
+              <option> Select Team</option>
+              {teamdData?.map((team) => {
+                return (
+                  <option value={team.id}>
+                    <img src={team.logo} style={{ width: "30px" }} />
+                    {team.name}
+                  </option>
+                );
+              })}
+            </Form.Select>
+            {/* <Dropdown>
               <Dropdown.Toggle variant="success" id="dropdown-basic">
                 Select Team
               </Dropdown.Toggle>
-
               <Dropdown.Menu>
                 {teamdData?.map((team) => {
                   return (
@@ -102,14 +127,14 @@ export default function Players() {
                   );
                 })}
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
           </Modal.Body>
 
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={()=>addPlayer(player)}>
+            <Button variant="primary" onClick={() => addPlayer(player)}>
               Ok
             </Button>
           </Modal.Footer>
@@ -118,4 +143,3 @@ export default function Players() {
     </>
   );
 }
-

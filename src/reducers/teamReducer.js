@@ -86,7 +86,7 @@ export const teamReducer = (state = initialState, action) => {
 
       const stateCopy = { ...state };
 
-      const team = stateCopy.teams.find((t) => t.id == action.payload.team.id);
+      const team = stateCopy.teams.find((t) => t.id == action.payload.teamId);
 
       if (team) {
         let playerAlreadyAdded = false;
